@@ -45,9 +45,9 @@ class Analyzer(Thread):
             exit(0)
 
     def send_graphite_metric(self, name, value):
-        if settings.GRAPHITE_HOST != '':
+        if settings.CARBON_HOST != '':
             sock = socket.socket()
-            sock.connect((settings.GRAPHITE_HOST.replace('http://', ''), settings.CARBON_PORT))
+            sock.connect((settings.CARBON_HOST.replace('http://', ''), settings.CARBON_PORT))
             sock.sendall('%s %s %i\n' % (name, value, time()))
             sock.close()
             return True
